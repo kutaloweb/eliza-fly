@@ -1,7 +1,5 @@
 import { PostgresDatabaseAdapter } from "@elizaos/adapter-postgres";
 import { SqliteDatabaseAdapter } from "@elizaos/adapter-sqlite";
-import { AutoClientInterface } from "@elizaos/client-auto";
-import { FarcasterAgentClient } from "@elizaos/client-farcaster";
 import { LensAgentClient } from "@elizaos/client-lens";
 import { SlackClientInterface } from "@elizaos/client-slack";
 import { TelegramClientInterface } from "@elizaos/client-telegram";
@@ -29,8 +27,6 @@ import { RedisClient } from "@elizaos/adapter-redis";
 import { zgPlugin } from "@elizaos/plugin-0g";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import createGoatPlugin from "@elizaos/plugin-goat";
-// import { intifacePlugin } from "@elizaos/plugin-intiface";
-import { DirectClient } from "@elizaos/client-direct";
 import { aptosPlugin } from "@elizaos/plugin-aptos";
 import {
     advancedTradePlugin,
@@ -362,11 +358,6 @@ export async function initializeClients(
         character.clients?.map((str) => str.toLowerCase()) || [];
     elizaLogger.log("initializeClients", clientTypes, "for", character.name);
 
-    if (clientTypes.includes(Clients.DIRECT)) {
-        const autoClient = await AutoClientInterface.start(runtime);
-        if (autoClient) clients.auto = autoClient;
-    }
-
     if (clientTypes.includes(Clients.TELEGRAM)) {
         const telegramClient = await TelegramClientInterface.start(runtime);
         if (telegramClient) clients.telegram = telegramClient;
@@ -383,14 +374,6 @@ export async function initializeClients(
         }
     }
 
-    if (clientTypes.includes(Clients.FARCASTER)) {
-        // why is this one different :(
-        const farcasterClient = new FarcasterAgentClient(runtime);
-        if (farcasterClient) {
-            farcasterClient.start();
-            clients.farcaster = farcasterClient;
-        }
-    }
     if (clientTypes.includes("lens")) {
         const lensClient = new LensAgentClient(runtime);
         lensClient.start();

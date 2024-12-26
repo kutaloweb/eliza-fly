@@ -609,12 +609,9 @@ export type Plugin = {
  * Available client platforms
  */
 export enum Clients {
-    DIRECT = "direct",
     TWITTER = "twitter",
     TELEGRAM = "telegram",
-    FARCASTER = "farcaster",
     LENS = "lens",
-    AUTO = "auto",
     SLACK = "slack",
 }
 
