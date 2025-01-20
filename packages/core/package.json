@@ -9,7 +9,7 @@
     "build": "tsup --format esm --dts",
     "lint": "eslint --fix  --cache .",
     "watch": "tsc --watch",
-    "dev": "tsup --format esm --dts --watch",
+    "dev": "tsup --format esm --dts --watch"
   },
   "author": "",
   "license": "MIT",
