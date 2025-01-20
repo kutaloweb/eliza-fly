@@ -19,6 +19,7 @@
   "dependencies": {
     "@elizaos/adapter-postgres": "workspace:*",
     "@elizaos/adapter-sqlite": "workspace:*",
+    "@elizaos/adapter-supabase": "workspace:*",
     "@elizaos/client-lens": "workspace:*",
     "@elizaos/client-telegram": "workspace:*",
     "@elizaos/client-twitter": "workspace:*",

@@ -572,6 +572,7 @@ export type Media = {
  * Client interface for platform connections
  */
 export type Client = {
+    name?: string;
     /** Start client connection */
     start: (runtime: IAgentRuntime) => Promise<unknown>;
 

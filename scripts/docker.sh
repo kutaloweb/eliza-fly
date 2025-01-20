@@ -31,7 +31,6 @@ case "$1" in
         PACKAGES=(
             "adapter-postgres"
             "adapter-sqlite"
-            "adapter-sqljs"
             "adapter-supabase"
             "client-telegram"
             "client-twitter"
