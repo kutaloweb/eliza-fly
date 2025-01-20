@@ -612,8 +612,6 @@ export type Plugin = {
 export enum Clients {
     TWITTER = "twitter",
     TELEGRAM = "telegram",
-    LENS = "lens",
-    SLACK = "slack",
 }
 
 export interface IAgentConfig {
@@ -659,15 +657,10 @@ export type Character = {
         twitterMessageHandlerTemplate?: string;
         twitterShouldRespondTemplate?: string;
         farcasterPostTemplate?: string;
-        lensPostTemplate?: string;
         farcasterMessageHandlerTemplate?: string;
-        lensMessageHandlerTemplate?: string;
         farcasterShouldRespondTemplate?: string;
-        lensShouldRespondTemplate?: string;
         telegramMessageHandlerTemplate?: string;
         telegramShouldRespondTemplate?: string;
-        slackMessageHandlerTemplate?: string;
-        slackShouldRespondTemplate?: string;
     };
 
     /** Character biography */
@@ -735,10 +728,6 @@ export type Character = {
             teamAgentIds?: string[];
             teamLeaderId?: string;
             teamMemberInterestKeywords?: string[];
-        };
-        slack?: {
-            shouldIgnoreBotMessages?: boolean;
-            shouldIgnoreDirectMessages?: boolean;
         };
     };
 
@@ -1201,7 +1190,6 @@ export enum ServiceType {
     INTIFACE = "intiface",
     AWS_S3 = "aws_s3",
     BUTTPLUG = "buttplug",
-    SLACK = "slack",
 }
 
 export enum LoggingLevel {
@@ -1220,8 +1208,4 @@ export interface ActionResponse {
     retweet: boolean;
     quote?: boolean;
     reply?: boolean;
-}
-
-export interface ISlackService extends Service {
-    client: any;
 }
