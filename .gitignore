@@ -28,9 +28,7 @@ tweets/
 
 logs/
 
-test-report.json
 content_cache/
-test_data/
 tokencache/
 tweetcache/
 twitter_cookies.json

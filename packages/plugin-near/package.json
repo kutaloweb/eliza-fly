@@ -14,8 +14,6 @@
   },
   "scripts": {
     "build": "tsup --format esm,cjs --dts",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "lint": "eslint . --fix"
   },
   "peerDependencies": {

@@ -38,7 +38,6 @@ case "$1" in
             "plugin-bootstrap"
             "plugin-image-generation"
             "plugin-node"
-            "plugin-evm"
         )
 
         # Start building the docker run command

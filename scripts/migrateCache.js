@@ -11,7 +11,6 @@ const cachedFiles = {
     "tweetcache/latest_checked_tweet_id.txt": `twitter/${twitterUserName}/latest_checked_tweet_id`,
     "tweetcache/home_timeline.json": `twitter/${twitterUserName}/timeline`,
     "tweetcache/tweet_generation_*.txt": "twitter/",
-    "tweetcache/tweet_generation_*.txt": "twitter/",
     "tweetcache/**/*.json": `twitter/tweets/`,
 
     "content_cache/**.mp4": "content/video/",
