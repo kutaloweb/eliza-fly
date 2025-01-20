@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@elizaos/adapter-postgres": "workspace:*",
-    "@elizaos/adapter-redis": "workspace:*",
     "@elizaos/adapter-sqlite": "workspace:*",
     "@elizaos/client-lens": "workspace:*",
     "@elizaos/client-telegram": "workspace:*",

@@ -23,7 +23,6 @@ import {
     validateCharacterConfig,
     CacheStore,
 } from "@elizaos/core";
-import { RedisClient } from "@elizaos/adapter-redis";
 import { zgPlugin } from "@elizaos/plugin-0g";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import createGoatPlugin from "@elizaos/plugin-goat";
@@ -541,17 +540,6 @@ function initializeCache(
     db?: IDatabaseCacheAdapter
 ) {
     switch (cacheStore) {
-        case CacheStore.REDIS:
-            if (process.env.REDIS_URL) {
-                elizaLogger.info("Connecting to Redis...");
-                const redisClient = new RedisClient(process.env.REDIS_URL);
-                return new CacheManager(
-                    new DbCacheAdapter(redisClient, character.id) // Using DbCacheAdapter since RedisClient also implements IDatabaseCacheAdapter
-                );
-            } else {
-                throw new Error("REDIS_URL environment variable is not set.");
-            }
-
         case CacheStore.DATABASE:
             if (db) {
                 elizaLogger.info("Using Database Cache...");
@@ -573,10 +561,7 @@ function initializeCache(
     }
 }
 
-async function startAgent(
-    character: Character,
-    directClient: DirectClient
-): Promise<AgentRuntime> {
+async function startAgent(character: Character): Promise<AgentRuntime> {
     let db: IDatabaseAdapter & IDatabaseCacheAdapter;
     try {
         character.id ??= stringToUuid(character.name);
@@ -613,9 +598,6 @@ async function startAgent(
         // start assigned clients
         runtime.clients = await initializeClients(character, runtime);
 
-        // add to container
-        directClient.registerAgent(runtime);
-
         // report to console
         elizaLogger.debug(`Started ${character.name} as ${runtime.agentId}`);
 
@@ -634,8 +616,6 @@ async function startAgent(
 }
 
 const startAgents = async () => {
-    const directClient = new DirectClient();
-    const serverPort = parseInt(settings.SERVER_PORT || "3000");
     const args = parseArguments();
 
     let charactersArg = args.characters || args.character;
@@ -648,18 +628,11 @@ const startAgents = async () => {
 
     try {
         for (const character of characters) {
-            await startAgent(character, directClient);
+            await startAgent(character);
         }
     } catch (error) {
         elizaLogger.error("Error starting agents:", error);
     }
-
-    // upload some agent functionality into directClient
-    directClient.startAgent = async (character: Character) => {
-        // wrap it so we don't have to inject directClient later
-        return startAgent(character, directClient);
-    };
-    directClient.start(serverPort);
 
     elizaLogger.log(
         "Run `pnpm start:client` to start the client and visit the outputted URL (http://localhost:5173) to chat with your agents"

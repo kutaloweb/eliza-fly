@@ -976,7 +976,6 @@ export type CacheOptions = {
 };
 
 export enum CacheStore {
-    REDIS = "redis",
     DATABASE = "database",
     FILESYSTEM = "filesystem",
 }
