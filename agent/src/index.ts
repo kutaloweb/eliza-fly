@@ -22,14 +22,10 @@ import {
     CacheStore,
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
-import createGoatPlugin from "@elizaos/plugin-goat";
-import { storyPlugin } from "@elizaos/plugin-story";
-import { flowPlugin } from "@elizaos/plugin-flow";
 import { imageGenerationPlugin } from "@elizaos/plugin-image-generation";
 import { multiversxPlugin } from "@elizaos/plugin-multiversx";
 import { nearPlugin } from "@elizaos/plugin-near";
 import { createNodePlugin } from "@elizaos/plugin-node";
-import { zksyncEraPlugin } from "@elizaos/plugin-zksync-era";
 import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
@@ -420,13 +416,6 @@ export async function createAgent(
 
     nodePlugin ??= createNodePlugin();
 
-    let goatPlugin: any | undefined;
-    if (getSecret(character, "ALCHEMY_API_KEY")) {
-        goatPlugin = await createGoatPlugin((secret) =>
-            getSecret(character, secret)
-        );
-    }
-
     return new AgentRuntime({
         databaseAdapter: db,
         token,
@@ -448,14 +437,7 @@ export async function createAgent(
             getSecret(character, "HEURIST_API_KEY")
                 ? imageGenerationPlugin
                 : null,
-            getSecret(character, "ALCHEMY_API_KEY") ? goatPlugin : null,
-            getSecret(character, "FLOW_ADDRESS") &&
-            getSecret(character, "FLOW_PRIVATE_KEY")
-                ? flowPlugin
-                : null,
             getSecret(character, "MVX_PRIVATE_KEY") ? multiversxPlugin : null,
-            getSecret(character, "ZKSYNC_PRIVATE_KEY") ? zksyncEraPlugin : null,
-            getSecret(character, "STORY_PRIVATE_KEY") ? storyPlugin : null,
         ].filter(Boolean),
         providers: [],
         actions: [],
