@@ -36,7 +36,6 @@ case "$1" in
             "client-twitter"
             "core"
             "plugin-bootstrap"
-            "plugin-image-generation"
             "plugin-node"
         )
 

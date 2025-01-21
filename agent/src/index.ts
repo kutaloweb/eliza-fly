@@ -22,9 +22,6 @@ import {
     CacheStore,
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
-import { imageGenerationPlugin } from "@elizaos/plugin-image-generation";
-import { multiversxPlugin } from "@elizaos/plugin-multiversx";
-import { nearPlugin } from "@elizaos/plugin-near";
 import { createNodePlugin } from "@elizaos/plugin-node";
 import Database from "better-sqlite3";
 import fs from "fs";
@@ -426,18 +423,6 @@ export async function createAgent(
         plugins: [
             bootstrapPlugin,
             nodePlugin,
-            (getSecret(character, "NEAR_ADDRESS") ||
-                getSecret(character, "NEAR_WALLET_PUBLIC_KEY")) &&
-            getSecret(character, "NEAR_WALLET_SECRET_KEY")
-                ? nearPlugin
-                : null,
-            getSecret(character, "FAL_API_KEY") ||
-            getSecret(character, "OPENAI_API_KEY") ||
-            getSecret(character, "VENICE_API_KEY") ||
-            getSecret(character, "HEURIST_API_KEY")
-                ? imageGenerationPlugin
-                : null,
-            getSecret(character, "MVX_PRIVATE_KEY") ? multiversxPlugin : null,
         ].filter(Boolean),
         providers: [],
         actions: [],
