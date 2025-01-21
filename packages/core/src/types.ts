@@ -693,7 +693,6 @@ export type Character = {
     /** Optional configuration */
     settings?: {
         secrets?: { [key: string]: string };
-        intiface?: boolean;
         voice?: {
             model?: string; // For VITS
             url?: string; // Legacy VITS support
@@ -1187,9 +1186,7 @@ export enum ServiceType {
     BROWSER = "browser",
     SPEECH_GENERATION = "speech_generation",
     PDF = "pdf",
-    INTIFACE = "intiface",
     AWS_S3 = "aws_s3",
-    BUTTPLUG = "buttplug",
 }
 
 export enum LoggingLevel {

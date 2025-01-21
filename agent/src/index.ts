@@ -21,18 +21,8 @@ import {
     validateCharacterConfig,
     CacheStore,
 } from "@elizaos/core";
-import { zgPlugin } from "@elizaos/plugin-0g";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import createGoatPlugin from "@elizaos/plugin-goat";
-import {
-    advancedTradePlugin,
-    coinbaseCommercePlugin,
-    coinbaseMassPaymentsPlugin,
-    tokenContractPlugin,
-    tradePlugin,
-    webhookPlugin,
-} from "@elizaos/plugin-coinbase";
-import { confluxPlugin } from "@elizaos/plugin-conflux";
 import { storyPlugin } from "@elizaos/plugin-story";
 import { flowPlugin } from "@elizaos/plugin-flow";
 import { imageGenerationPlugin } from "@elizaos/plugin-image-generation";
@@ -446,38 +436,17 @@ export async function createAgent(
         // character.plugins are handled when clients are added
         plugins: [
             bootstrapPlugin,
-            getSecret(character, "CONFLUX_CORE_PRIVATE_KEY")
-                ? confluxPlugin
-                : null,
             nodePlugin,
             (getSecret(character, "NEAR_ADDRESS") ||
                 getSecret(character, "NEAR_WALLET_PUBLIC_KEY")) &&
             getSecret(character, "NEAR_WALLET_SECRET_KEY")
                 ? nearPlugin
                 : null,
-            getSecret(character, "ZEROG_PRIVATE_KEY") ? zgPlugin : null,
-            getSecret(character, "COINBASE_COMMERCE_KEY")
-                ? coinbaseCommercePlugin
-                : null,
             getSecret(character, "FAL_API_KEY") ||
             getSecret(character, "OPENAI_API_KEY") ||
             getSecret(character, "VENICE_API_KEY") ||
             getSecret(character, "HEURIST_API_KEY")
                 ? imageGenerationPlugin
-                : null,
-            ...(getSecret(character, "COINBASE_API_KEY") &&
-            getSecret(character, "COINBASE_PRIVATE_KEY")
-                ? [
-                      coinbaseMassPaymentsPlugin,
-                      tradePlugin,
-                      tokenContractPlugin,
-                      advancedTradePlugin,
-                  ]
-                : []),
-            getSecret(character, "COINBASE_API_KEY") &&
-            getSecret(character, "COINBASE_PRIVATE_KEY") &&
-            getSecret(character, "COINBASE_NOTIFICATION_URI")
-                ? webhookPlugin
                 : null,
             getSecret(character, "ALCHEMY_API_KEY") ? goatPlugin : null,
             getSecret(character, "FLOW_ADDRESS") &&
